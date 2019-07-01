@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3cabbe04-372b-4caf-91e6-0e5344270533">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select 
+        count(id_reserva),
+        to_char(fecha, 'dd/mm/yyyy') as fecha
+from reserva_servicio
+                        GROUP BY fecha]]>
+	</queryString>
+	<field name="COUNT(ID_RESERVA)" class="java.math.BigDecimal"/>
+	<field name="FECHA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="149" y="32" width="317" height="36" uuid="66a87e6c-24c3-47a2-94cd-2b4cc27ec5d1"/>
+				<textElement>
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[Cantidad Reserva por Día]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="443" y="12" width="100" height="20" uuid="243b0a62-f373-48dc-bf82-f73d0c317885"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="287" splitType="Stretch">
+			<pie3DChart>
+				<chart>
+					<reportElement x="22" y="14" width="533" height="263" uuid="19bc725e-a196-4f94-aaa9-03525da6da7d"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{COUNT(ID_RESERVA)}]]></keyExpression>
+					<valueExpression><![CDATA[$F{COUNT(ID_RESERVA)}]]></valueExpression>
+					<labelExpression><![CDATA[$F{FECHA}]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

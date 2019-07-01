@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="49936d5a-104f-4bf4-aeb8-cc18c8d87740">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     PROFESIONAL."RUT"||'-'||PROFESIONAL."DV_RUT" AS PROFESIONAL_RUT,
+     PROFESIONAL."NOMBRE" ||' '||PROFESIONAL."P_APELLIDO"||' '||PROFESIONAL."S_APELLIDO" AS PROFESIONAL_NOMBRE,
+     RESERVA_SERVICIO."ID_RESERVA" AS ID_RESERVA,
+     RESERVA_SERVICIO."SERVICIO" AS NOMBRE_SERVICIO,
+     RESERVA_SERVICIO."FECHA" AS RESERVA_SERVICIO_FECHA,
+     RESERVA_SERVICIO."NOM_PACIENTE" AS RESERVA_SERVICIO_NOM_PACIENTE,  
+     APODERADO."RUT"||'-'|| APODERADO."DV_RUT" AS APODERADO_RUT,
+     APODERADO."NOMBRE"||' '||APODERADO."P_APELLIDO"||' '||APODERADO."S_APELLIDO" AS APODERADO_NOMBRE     
+FROM
+     "ALEJ_UX"."APODERADO" APODERADO INNER JOIN "ALEJ_UX"."RESERVA_SERVICIO" RESERVA_SERVICIO ON APODERADO."RUT" = RESERVA_SERVICIO."APODERADO_RUT"
+     INNER JOIN "ALEJ_UX"."PROFESIONAL" PROFESIONAL ON RESERVA_SERVICIO."SERVICIO_PROFESIONAL_RUT" = PROFESIONAL."RUT"
+WHERE to_char(RESERVA_SERVICIO."FECHA", 'mm')=(SELECT to_char(sysdate, 'mm') FROM dual)]]>
+	</queryString>
+	<field name="PROFESIONAL_RUT" class="java.lang.String"/>
+	<field name="PROFESIONAL_NOMBRE" class="java.lang.String"/>
+	<field name="ID_RESERVA" class="java.math.BigDecimal"/>
+	<field name="NOMBRE_SERVICIO" class="java.lang.String"/>
+	<field name="RESERVA_SERVICIO_FECHA" class="java.sql.Timestamp"/>
+	<field name="RESERVA_SERVICIO_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="APODERADO_RUT" class="java.lang.String"/>
+	<field name="APODERADO_NOMBRE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="177" y="29" width="229" height="31" uuid="5e158878-856e-48c5-a22e-453b983022c2"/>
+				<textElement>
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[Reservas Realizadas]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="437" y="9" width="100" height="20" uuid="2361beb9-6bcf-42aa-b621-30ce4f35803e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="2" width="100" height="20" uuid="96db541a-5741-45f1-b0d2-21e1a1f4d79d"/>
+				<text><![CDATA[ID_RESERVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="2" width="100" height="20" uuid="760d7751-e85c-4518-bdc9-4398f842c4e9"/>
+				<text><![CDATA[NOMBRE_SERVICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="2" width="100" height="20" uuid="b8425fe5-c213-4de8-9093-e2efb9642f95"/>
+				<text><![CDATA[APODERADO_RUT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="2" width="100" height="20" uuid="b19be4bf-8f9f-4a4f-8fd0-0a542aade185"/>
+				<text><![CDATA[APODERADO_NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="2" width="100" height="20" uuid="b210256e-ad19-46a7-b72e-18899a9245f0"/>
+				<text><![CDATA[RESERVA_SERVICIO_FECHA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="19" width="100" height="20" uuid="4e13e772-cb30-4ad1-8245-98552ab941e3"/>
+				<textFieldExpression><![CDATA[$F{ID_RESERVA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="216" y="19" width="100" height="20" uuid="9c075225-2310-4614-b752-4763b7bbc1c8"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_SERVICIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="19" width="100" height="20" uuid="89c2559e-df63-4e99-a25e-137cb4c2df4c"/>
+				<textFieldExpression><![CDATA[$F{APODERADO_RUT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="19" width="100" height="20" uuid="c06804f9-1c5e-4461-b7bd-8cb6df97becd"/>
+				<textFieldExpression><![CDATA[$F{APODERADO_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="19" width="100" height="20" uuid="2d9f48d7-a5bc-47bd-ab0e-ebc2ccf28dcf"/>
+				<textFieldExpression><![CDATA[$F{RESERVA_SERVICIO_FECHA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="216" y="6" width="80" height="20" uuid="31bcec44-c19a-49e5-9e1c-98514ed29a5d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="296" y="6" width="40" height="20" uuid="c52ec865-7763-4423-8824-0d53255ad206"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
